@@ -1,0 +1,4 @@
+.painel_play{
+    display: flex;
+    flex-direction: row;
+}

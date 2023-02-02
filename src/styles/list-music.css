@@ -1,0 +1,30 @@
+.list-music{
+    width: 30%;
+    color: white;
+    padding: 20px;
+}
+
+.text_music{
+    margin: 12px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgb(65, 63, 63);
+    font-size: 18px;
+    font-weight: 400;
+    text-transform: capitalize;
+    transition: .5s all ease-in-out;
+}
+
+.list-music div h1:hover{
+   background-color:  rgb(39, 37, 37);;
+}
+
+.active{
+    background-color: white;
+    color: rgb(65, 63, 63);
+}
+
+.active:hover{
+    background-color: rgb(65, 63, 63);
+    color: white;
+}
