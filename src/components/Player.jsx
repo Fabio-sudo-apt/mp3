@@ -1,4 +1,7 @@
 import { useEffect, useRef, useState } from "react"
+import {AiFillPlayCircle, AiFillPauseCircle} from "react-icons/ai"
+import {ImNext, ImPrevious} from "react-icons/im"
+import {responseImage} from "../services/responseMusic"
 import '../styles/player.css'
 function Player({ musics }) {
     const audio = useRef()
@@ -8,12 +11,17 @@ function Player({ musics }) {
     let [indexMusic, setIndexMusic] = useState(0)
     const [isPlay, setIsPlay] = useState(false)
 
+    const getImage = async (music) => {
+        return await responseImage(music)
+    }
+
     useEffect(() => {
         setListMusic(musics)
     }, [musics])
 
     useEffect(() => {
         if (listMusic.length > 0) {
+            const images = getImage(listMusic[indexMusic])
             setMusic(listMusic[indexMusic])
         }
     }, [musics, indexMusic])
@@ -31,13 +39,13 @@ function Player({ musics }) {
     }
 
     const next = () => {
-        if(indexMusic === listMusic.length -1){
+        if (indexMusic === listMusic.length - 1) {
             setIndexMusic(0)
             console.log("deu certo")
-        }else{
+        } else {
             setIndexMusic(++indexMusic)
         }
-        
+
         setIsPlay(false)
         setTimeout(function () {
             play()
@@ -45,26 +53,28 @@ function Player({ musics }) {
     }
 
     const prev = () => {
-        if(indexMusic > 0){
+        if (indexMusic > 0) {
             setIndexMusic(--indexMusic)
-        }else{
+        } else {
             setIndexMusic(listMusic.length - 1)
         }
         setIsPlay(false)
         setTimeout(function () {
             play()
-        }, 500)
+        }, 50)
         console.log(music)
     }
 
     return (
         <div className="container-player">
-            {/* <img src={} alt={}/> */}
+            <div className="capa"></div>
             <h3>{music.name}</h3>
-            <audio ref={audio} src={music.previewURL}></audio>
-            <button onClick={() => prev()}>Anterior</button>
-            <button onClick={isPlay ? pause : play}>{isPlay ? "Pause" : "Play"}</button>
-            <button onClick={() => next()}>Proximo</button>
+            <div className="play">
+                <audio ref={audio} src={music.previewURL}></audio>
+                <a onClick={() => prev()}><ImPrevious /></a>
+                <a onClick={isPlay ? pause : play}>{isPlay ? <AiFillPauseCircle /> : <AiFillPlayCircle />}</a>
+                <a onClick={() => next()}><ImNext /></a>
+            </div>
         </div>
     )
 }

@@ -9,11 +9,11 @@ async function responseMusic() {
   return response.data.tracks;
 }
 
-async function responseAlbums(idAlbum){
+async function responseImage(music){
   const response = await api.get(
-    `/v2.2/artists/${idAlbum}/albums/top`
+    `/v2.1/albums/${music.albumId}/image?apikey=${key}`
   );
-  console.log(response.data)
+  console.log(response.data.albums)
 }
 
-export default responseMusic;
+export {responseMusic, responseImage};
